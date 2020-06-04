@@ -1,0 +1,70 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "dependencies": {
+    "alipay-ftof": "^0.1.5",
+    "alipay-mobile": "^2.2.1",
+    "egg": "^2.2.1",
+    "egg-alinode": "^2.0.1",
+    "egg-cors": "^2.1.2",
+    "egg-jwt": "^3.1.6",
+    "egg-multipart": "^2.0.0",
+    "egg-scripts": "^2.5.0",
+    "egg-security": "^2.1.0",
+    "egg-sequelize": "^3.1.2",
+    "egg-swagger-doc": "^2.2.5",
+    "egg-validate": "^1.0.0",
+    "egg-view-nunjucks": "^2.1.4",
+    "jsonwebtoken": "^8.2.1",
+    "lodash": "^4.17.5",
+    "md5": "^2.2.1",
+    "moment": "^2.21.0",
+    "mysql": "^2.15.0",
+    "mysql2": "^1.5.2",
+    "mz-modules": "^2.1.0",
+    "sequelize-cli": "^4.0.0"
+  },
+  "devDependencies": {
+    "autod": "^3.0.1",
+    "autod-egg": "^1.0.0",
+    "egg-bin": "^4.3.5",
+    "egg-ci": "^1.8.0",
+    "egg-mock": "^3.14.0",
+    "eslint": "^4.11.0",
+    "eslint-config-egg": "^6.0.0"
+  },
+  "engines": {
+    "node": ">=8.9.0"
+  },
+  "scripts": {
+    "start": "egg-scripts start --daemon --title=egg-server-server",
+    "stop": "egg-scripts stop --title=egg-server-server",
+    "dev": "egg-bin dev",
+    "debug": "egg-bin debug",
+    "test": "npm run lint -- --fix && npm run test-local",
+    "test-local": "egg-bin test",
+    "cov": "egg-bin cov",
+    "lint": "eslint .",
+    "ci": "npm run lint && npm run cov",
+    "autod": "autod",
+    "db:migrate": "sequelize db:migrate",
+    "sequelize:init": "sequelize init",
+    "db:migrate:undo": "sequelize db:migrate:undo",
+    "db:migrate:undo:all": "sequelize db:migrate:undo:all",
+    "db:migrate:undo:name": "sequelize db:migrate:undo",
+    "migration:create": "sequelize migration:create",
+    "seed:create": "sequelize seed:create",
+    "model:generate": "sequelize model:generate"
+  },
+  "ci": {
+    "version": "8"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "MIT"
+}

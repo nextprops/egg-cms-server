@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>demo</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.19.2/axios.js"></script>
+</head>
+<style type="text/css">
+  #app {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
+
+  .block {
+    width: 400px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
+
+  .item {
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 30px;
+
+  }
+
+  input {
+    display: inline-block;
+    width: 300px
+  }
+
+  .user {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+  }
+</style>
+
+<body>
+  <div id="app">
+    <div class="user">
+      <h2>当前登录的用户</h2>
+      <input type="text" v-model="userInfo.real_name" placeholder="请输入">
+    </div>
+    <h2>用户与鉴权</h2>
+    <div class="block">
+      <div class="item">
+        <div>username</div><input type="text" v-model="username" placeholder="请输入">
+      </div>
+      <div class="item">
+        <div>real_name</div><input type="text" v-model="real_name" placeholder="请输入">
+      </div>
+      <div class="item">
+        <div>password</div><input type="text" v-model="password" placeholder="请输入">
+      </div>
+      <div class="item">
+        <div>role</div><input type="text" v-model="role" placeholder="请输入">
+      </div>
+      <div class="item">
+        <div>user_id</div><input type="text" v-model="user_id" placeholder="请输入">
+      </div>
+      <div class="btn">
+        <button @click="handleUserAddClick">add</button>
+        <button @click="handleUserLoginClick">login</button>
+        <button @click="handleUserLogoutClick">logout</button>
+        <button @click="handleUserEditClick">edit</button>
+        <button @click="handleUserDeleteClick">delete</button>
+        <button @click="handleUserListClick">list</button>
+        <button @click="handleUserDetailClick">detail</button>
+        <button @click="handleDashboard">handleDashboard</button>
+      </div>
+    </div>
+    <h2>标签</h2>
+    <div class="block">
+      <div class="item">
+        <div>tag_name</div><input type="text" v-model="tag_name" placeholder="请输入">
+      </div>
+      <div class="item">
+        <div>tag_id</div><input type="text" v-model="tag_id" placeholder="请输入">
+      </div>
+      <div class="item">
+        <div>page</div><input type="text" v-model="page" placeholder="请输入">
+      </div>
+      <div class="item">
+        <div>pageSize</div><input type="text" v-model="pageSize" placeholder="请输入">
+      </div>
+      <div class="btn">
+        <button @click="handleTagAddClick">add</button>
+        <button @click="handleTagEditClick">edit</button>
+        <button @click="handleTagDeleteClick">delete</button>
+        <button @click="handleTagListClick">list</button>
+      </div>
+    </div>
+    <h2>文章</h2>
+    <div class="block">
+      <div class="item">
+        <div>title</div><input type="text" v-model="title" placeholder="请输入">
+      </div>
+      <div class="item">
+        <div>description</div><input type="text" v-model="description" placeholder="请输入">
+      </div>
+      <div class="item">
+        <div>content</div><input type="text" v-model="content" placeholder="请输入">
+      </div>
+      <div class="item">
+        <div>article_id</div><input type="text" v-model="article_id" placeholder="请输入">
+      </div>
+      <div class="item">
+        <div>tag_id</div><input type="text" v-model="tag_id" placeholder="请输入">
+      </div>
+      <div class="item">
+        <div>type</div><input type="text" v-model="type" placeholder="请输入">
+      </div>
+      <div class="item">
+        <div>keyword</div><input type="text" v-model="keyword" placeholder="请输入">
+      </div>
+      <div class="btn">
+        <button @click="handleArticleAddClick">add</button>
+        <button @click="handleArticleEditClick">edit</button>
+        <button @click="handleArticleDeleteClick">delete</button>
+        <button @click="handleArticleListClick">list</button>
+        <button @click="handleArticleDetailClick">detail</button>
+        <button @click="handleArticleSearchClick">search</button>
+        <button @click="handleArticlePublishClick">Publish</button>
+        <button @click="handleArticleShieldClick">Shield</button>
+      </div>
+    </div>
+    <h2>留言</h2>
+    <div class="block">
+      <div class="item">
+        <div>article_id</div><input type="text" v-model="article_id" placeholder="请输入">
+      </div>
+      <div class="item">
+        <div>content</div><input type="text" v-model="content">
+      </div>
+      <div class="item">
+        <div>real_name</div><input type="text" v-model="real_name">
+      </div>
+      <div class="item">
+        <div>email</div><input type="text" v-model="email">
+      </div>
+      <div class="item">
+        <div>comment_id</div><input type="text" v-model="comment_id">
+      </div>
+      <div class="btn">
+        <button @click="addCommentClick">add</button>
+        <button @click="listCommentClick">list</button>
+        <button @click="deleteCommentClick">delete</button>
+      </div>
+    </div>
+    <h2>单个文件上传</h2>
+    <div class="block">
+      <form>
+        <ul>
+          <li><input id="singleUploadInput" name="file" type="file" /></li>
+          <li><input @click="singleUpload" type="submit" value="Upload" /></li>
+        </ul>
+      </form>
+    </div>
+    <h2>多文件上传</h2>
+    <div class="block">
+      <form>
+        <ul>
+          <li><input id="multiUploadInput" name="file1" type="file" multiple="multiple" /></li>
+          <li><input @click="multiUpload" type="submit" value="Upload" /></li>
+        </ul>
+      </form>
+    </div>
+  </div>
+</body>
+<script type="text/javascript">
+  const host = window.location.host;
+  const api = axios.create({
+    timeout: 60000,
+    baseURL: "//" + host,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "Authorization,Origin, X-Requested-With, Content-Type, Accept",
+      "Access-Control-Allow-Methods": "GET,POST,DELETE"
+    }
+  });
+  new Vue({
+    el: "#app",
+    data: function () {
+      return {
+        // user
+        username: "admin",
+        password: "admin",
+        real_name: "用户名",
+        role: 1,
+        user_id: 1,
+        token: "111",
+        userInfo: {},
+        page: 1,
+        pageSize: 20,
+        // tag
+        tag_name: "日常",
+        tag_id: 1,
+        // article
+        content: "文章内容",
+        article_id: 1,
+        status: 1,
+        tag_id: 1,
+        title: "文章标题",
+        description: "文章简介",
+        keyword: "关键字",
+        type: "分享",
+
+        // comment
+        comment_id: 1,
+        email: "diaodiao@diao.com",
+      }
+    },
+    mounted() {
+      this.getToken();
+      this.getUserInfo();
+    },
+    methods: {
+      // user
+      handleUserAddClick() {
+        const params = {
+          username: this.username,
+          password: this.password,
+          real_name: this.real_name,
+          role: this.role,
+        };
+        api.post(`/user/add`, params).then(function (res) {
+          console.log("======>handleUserAddClick", res)
+        })
+      },
+      handleUserLoginClick() {
+        const params = {
+          username: this.username,
+          password: this.password,
+        };
+        const that = this;
+        api.post(`/user/login`, params).then(function (res) {
+          that.token = res.data.data.token;
+          that.userInfo = res.data.data;
+          that.setToken();
+          console.log("======>handleUserLoginClick", that.userInfo)
+        })
+      },
+      handleUserLogoutClick() {
+        if (!this.userInfo.user_id) return;
+        api.get(`/user/logout?user_id=${this.userInfo.user_id}`).then(function (res) {
+          window.localStorage.clear();
+          location.href = location.origin + '/demo';
+        })
+      },
+      handleUserEditClick() {
+        const params = {
+          username: this.username,
+          password: this.password,
+          role: this.role,
+        };
+        api.post("/user/update", params).then(function (res) {
+          console.log("======>res")
+        })
+      },
+      handleUserDeleteClick() {
+        const id = this.user_id || 0;
+        api.delete(`/user/delete?user_id=${id}&username=${this.username}`).then(function (res) {
+          console.log("======>res")
+        })
+      },
+      handleUserListClick() {
+        const params = {
+          page: Number(this.page),
+          pageSize: this.pageSize,
+        };
+        api.post("/user/list", params).then(function (res) {
+          console.log("======>res")
+        })
+      },
+      handleUserDetailClick() {
+        const id = this.user_id || 0;
+        api.get(`/user/detail?user_id=${id}`).then(function (res) {
+          console.log("======>res")
+        })
+      },
+
+
+      // article
+      handleArticleAddClick() {
+        const params = {
+          title: this.title,
+          status: this.status,
+          description: this.description,
+          content: this.content,
+          tag_id: this.tag_id,
+          tag_name: this.tag_name,
+          user_id: this.userInfo.user_id || 1,
+          username: this.userInfo.username || "",
+          real_name: this.userInfo.real_name || "",
+          keyword: this.keyword,
+          type: this.type || ""
+        };
+        api.post(`/article/add`, params).then(function (res) {
+          console.log("=======>res")
+        })
+      },
+      handleArticleEditClick() {
+        const params = {
+          title: this.title,
+          status: this.status,
+          description: this.description,
+          content: this.content,
+          tag_id: this.tag_id,
+          article_id: Number(this.article_id)
+        };
+        api.post(`/article/update`, params).then(function (res) {
+          console.log("=======>res")
+        })
+      },
+      handleArticleDeleteClick() {
+        api.delete(`/article/delete?article_id=${this.article_id}`).then(function (res) {
+          console.log("=======>res")
+        })
+      },
+      handleArticleListClick() {
+        const params = {
+          page: Number(this.page),
+          pageSize: this.pageSize,
+          tag_id: this.tag_id
+        };
+        api.post(`/article/list`, params).then(function (res) {
+          console.log("=======>res")
+        })
+      },
+      handleArticleSearchClick() {
+        api.get(`/article/search?keyword=${this.keyword}`).then(function (res) {
+          console.log("=======>res")
+        })
+      },
+      handleArticlePublishClick() {
+        api.get(`/article/publish?article_id=${this.article_id}`).then(function (res) {
+          console.log("=======>res")
+        })
+      },
+      handleArticleShieldClick() {
+        api.get(`/article/shield?article_id=${this.article_id}`).then(function (res) {
+          console.log("=======>res")
+        })
+      },
+      handleArticleDetailClick() {
+        api.get(`/article/detail?article_id=${this.article_id}`).then(function (res) {
+          console.log("=======>res")
+        })
+      },
+
+
+      handleTagAddClick() {
+        const params = {
+          tag_name: this.tag_name,
+          user_id: this.userInfo.user_id || 1,
+          username: this.userInfo.username || ""
+        };
+        api.post(`/tag/add`, params).then(function (res) {
+          console.log("==========>", res)
+        })
+      },
+      handleTagEditClick() {
+        const params = {
+          tag_name: this.tag_name,
+          tag_id: Number(this.tag_id),
+          user_id: this.userInfo.user_id || 1,
+          username: this.userInfo.username || ""
+        };
+        api.post(`/tag/update`, params).then(function (res) {
+          console.log("==========>", res)
+        })
+      },
+      handleTagDeleteClick() {
+        api.delete(`/tag/delete?tag_id=${this.tag_id}`).then(function (res) {
+          console.log("==========>", res)
+        })
+      },
+      handleTagListClick() {
+        const params = {
+          page: Number(this.page),
+          pageSize: this.pageSize
+        }
+        console.log(params)
+        api.post('/tag/list', params).then(function (res) {
+          console.log("==========>", res)
+        })
+      },
+
+      addCommentClick() {
+        const params = {
+          content: this.content,
+          article_id: Number(this.article_id),
+          real_name: this.real_name,
+          email: this.email
+        };
+        api.post('/comment/add', params).then(function (res) {
+          console.log(res)
+        })
+      },
+      listCommentClick() {
+        const params = {
+          page: this.page,
+          pageSize: this.pageSize,
+          article_id: Number(this.article_id)
+        }
+        api.post('comment/list', params).then(function (res) {
+          console.log(res)
+        })
+      },
+      deleteCommentClick() {
+        api.delete('comment/delete', this.comment_id).then(function (res) {
+          console.log(res)
+        })
+      },
+
+
+
+      singleUpload(e) {
+        e.preventDefault();
+        const formData = new FormData();
+        const input = document.getElementById('singleUploadInput');
+        if (input.files && input.files[0]) {
+          const file = input.files[0];
+          formData.set('name', file.name)
+          formData.set('file', file)
+        }
+        api({
+          url: `/upload/singleUpload`,
+          method: 'POST',
+          data: formData,
+        }).then(function (res) {
+          console.log("=========>singleUpload", res)
+        })
+      },
+      multiUpload(e) {
+        e.preventDefault();
+        const input = document.getElementById('multiUploadInput');
+        if (input.files) {
+          const files = input.files;
+          for (let i = 0; i < files.length; i++) {
+            let file = files[i]
+            const formData = new FormData();
+            formData.set('name', file.name)
+            formData.set('file' + i, file)
+            api({
+              url: `/upload/singleUpload`,
+              method: 'POST',
+              data: formData,
+            }).then(function (res) {
+              console.log("=========>singleUpload", res)
+            })
+          }
+
+        }
+
+      },
+
+      handleDashboard() {
+        api.get(`/dashboard`).then(function (res) {
+          console.log("==========>", res)
+        })
+      },
+
+
+      getUserInfo() {
+        const userInfo = localStorage.getItem("userInfo") || "{}";
+        this.userInfo = JSON.parse(userInfo);
+      },
+      getToken() {
+        this.token = localStorage.getItem("Authorization") || "noToken";
+        console.log("this.token", this.token)
+        this.setApiToken();
+      },
+      setToken() {
+        const token = this.token;
+        const userInfo = JSON.stringify(this.userInfo);
+        localStorage.setItem("Authorization", token);
+        localStorage.setItem("userInfo", userInfo);
+        this.setApiToken();
+      },
+      setApiToken() {
+        api.defaults.headers.Authorization = `Bearer ${this.token}`;
+      },
+    },
+  })
+</script>
+
+</html>
