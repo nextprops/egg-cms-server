@@ -1,4 +1,4 @@
-# egg + mysql + swagger-ui 博客内容管理服务端示例
+<h1 style="color: #009c6a">egg + mysql + swagger-ui 博客内容管理服务端示例</h1>
 
 
 
@@ -35,10 +35,13 @@
 - [x] 日志记录
 - [x] 文件上传 (默认路径: public/upload)
     
-## 准备开始吧！
-1. 安装好mysql，并新建一个数据库，确保可以用可视化工具访问成功!
-1. 安装好mysql，并新建一个数据库，确保可以用可视化工具访问成功!
-1. 安装好mysql，并新建一个数据库，确保可以用可视化工具访问成功!
+## 准备开始吧😎！
+<p style="color: #6296ff">安装好mysql，并新建一个数据库，确保可以用可视化工具访问成功!</p>
+<p style="color: #6296ff">安装好mysql，并新建一个数据库，确保可以用可视化工具访问成功!</p>
+<p style="color: #6296ff">安装好mysql，并新建一个数据库，确保可以用可视化工具访问成功!</p>
+
+
+
 2. 安装好工程依赖。
 3. 配置好链接数据库的参数。
     ```
@@ -52,7 +55,7 @@
         charset: 'utf8mb4',
       },
       database: '数据库名',  // 例如 'blog'
-      host: 'host',         // 例如 '123.123.12.123'
+      host: 'host',         // 例如 '123.123.12.123'或'localhost'
       port: '3306',
       username: '数据库用户名', // 例如 'blog'
       password: '数据库密码',
@@ -61,6 +64,8 @@
     ```
 4. 运行 npm run db:migrate 在数据库中创建表。
 5. 运行 npm run dev   
+<p style="color: #e04949">🤡如果出现以下报错，是因为数据库无法正常链接。请确保数据库有权限且能正常链接🤡</p>
+<p style="color: #e04949">SequelizeConnectionRefusedError: connect ECONNREFUSED 127.0.0.1:3306</p>
 
 
 ## 开发
@@ -123,5 +128,5 @@ ps: 如果使用Jenkins部署的话要注意，Jenkins任务结束时候会自�
 
 [egg]: https://eggjs.org
 
-## 感谢大佬们
-在github上找过很多的demo和不同的范例，因为时间隔得比较久有些不太记得了。反正感谢大佬们。他们才是真正的大佬。
+## 感谢大佬
+参考过很多不同的范例，因为时间隔得比较久不记得了。感谢大佬。
