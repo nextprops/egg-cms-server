@@ -18,7 +18,7 @@ describe('get()', () => {
     const ctx = app.mockContext();
     // 通过 ctx 访问到 service.token
     const token = await ctx.service.token.fetchOne('21338880-4971-4428-8258-9b63d4b2');
-    assert(token.length == 1);
+    assert(token.length === 1);
   });
 
 

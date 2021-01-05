@@ -1,4 +1,6 @@
-const jwt = require('jsonwebtoken');
+'use strict';
+
+// const jwt = require('jsonwebtoken');
 
 // const {
 //   ROLE_ADMAIN,
@@ -20,7 +22,7 @@ const jwt = require('jsonwebtoken');
 // };
 
 
-module.exports = options => {
+module.exports = () => {
   return async function checkLogin(ctx, next) {
     const token = ctx.request.header.authorization;
     if (token) {
@@ -28,6 +30,7 @@ module.exports = options => {
       await next();
     } else {
       // 缺少token，则跳转到登陆页面
+      // eslint-disable-next-line no-return-assign
       return ctx.body = ctx.response.ServerResponse.createByErrorCodeMsg(
         ctx.response.ResponseCode.NEED_LOGIN, '用户未登录');
     }

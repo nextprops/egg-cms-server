@@ -4,8 +4,8 @@ const Service = require('egg').Service;
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
-const md5 = require('md5');
-const _ = require('lodash');
+// const md5 = require('md5');
+// const _ = require('lodash');
 
 class ArticleService extends Service {
   constructor(ctx) {

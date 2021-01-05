@@ -5,7 +5,6 @@ module.exports = {
     const {
       INTEGER,
       STRING,
-      TEXT,
     } = Sequelize;
     return queryInterface.createTable('systemLog', {
       id: {

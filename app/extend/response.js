@@ -1,3 +1,5 @@
+'use strict';
+
 const ServerResponse = require('../common/serverResponse');
 const ResponseCode = require('../common/responseCode');
 

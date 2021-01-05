@@ -1,4 +1,4 @@
-
+'use strict';
 
 /**
  * Add X-Response-Time header field.
