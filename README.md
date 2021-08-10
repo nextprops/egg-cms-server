@@ -9,9 +9,9 @@
 - 项目仅是用于个人学习的示例，不是很完善，如有错漏，欢迎在issue中指正，不一定能及时改。
 
 （服务启动后的界面）
-![image](//api.nextprops.com/public/upload/Snipaste_2020-05-07_12-50-29.png)\
+![image](api.nextprops.com/public/upload/Snipaste_2020-05-07_12-50-29.png)\
 （swagger-ui页面）
-![image](//api.nextprops.com/public/upload/Snipaste_2020-05-07_12-57-15.png)
+![image](api.nextprops.com/public/upload/Snipaste_2020-05-07_12-57-15.png)
 ## 技术介绍
 - 服务框架 阿里团队的 [egg](https://eggjs.org/zh-cn/) 框架。
 - 数据库 [mysql](https://www.mysql.com/)
